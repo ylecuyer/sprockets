@@ -176,6 +176,9 @@ module Sprockets
         def safe_open(path, &block)
           if File.exist?(path)
             File.open(path, 'rb', &block)
+          else
+            @logger.warn "Cache miss: #{path}"
+            nil
           end
         rescue Errno::ENOENT
         end
